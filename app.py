@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request 
+from flask_cors import CORS
+from flask_cors.decorator import cross_origin
 import pymongo
 
 app = Flask(__name__)
+CORS(app)
 
 # Routes
 from user import routes
@@ -14,6 +17,7 @@ db = pymongo.database.Database(client, 'abobus')
 user_collection = pymongo.collection.Collection(db,'bobabo')
 
 @app.route('/send_here', methods = ['POST'])
+@cross_origin()
 def sendtodb():
     data = request.get_json()
     userName = data.get('username','')
