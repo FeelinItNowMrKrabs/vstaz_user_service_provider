@@ -13,8 +13,14 @@ client = pymongo.MongoClient(CONNECTION_STRING)
 db = pymongo.database.Database(client, 'abobus')
 user_collection = pymongo.collection.Collection(db,'bobabo')
 
+@app.route('/send_here', methods = ['POST'])
+def sendtodb():
+    data = request.get_json()
+    userName = data.get('name','')
+    return "Sent to db" + str(userName)
 
-@app.route('/')
+
+@app.route('/create')
 def home():
     return render_template('home.html')
 
