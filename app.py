@@ -16,8 +16,13 @@ user_collection = pymongo.collection.Collection(db,'bobabo')
 @app.route('/send_here', methods = ['POST'])
 def sendtodb():
     data = request.get_json()
-    userName = data.get('name','')
-    return "Sent to db" + str(userName)
+    userName = data.get('username','')
+    userPassword = data.get('password','')
+    userEmail = data.get('email','')
+    userFirstName = data.get('firstName','')
+    userLastName = data.get('lastName','')
+    db.bobobus.insert_one({"userName":userName,"userPassword":userPassword,"userEmail":userEmail,"userFirstName":userFirstName,"userLastName":userLastName})
+    return "Sent to db " 
 
 
 @app.route('/create')
